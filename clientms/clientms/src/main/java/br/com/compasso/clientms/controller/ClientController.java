@@ -27,7 +27,7 @@ public class ClientController {
 	ClientRepository clientRepository;
 
 	@PostMapping("/new")
-	public void newClient(@RequestBody Client client) {
+	public void newClient(@RequestBody (required = true) Client client) {
 		clientRepository.save(client);
 	}
 

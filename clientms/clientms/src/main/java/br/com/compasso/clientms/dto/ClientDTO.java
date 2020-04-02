@@ -80,7 +80,9 @@ public class ClientDTO {
 		Client client = clientRepository.getOne(id);
 		client.setName(this.name);
 		client.setGender(this.gender);
-		
+		client.setAge(this.age);
+		client.setBirthDate(this.birthDate);
+		client.setCity(this.city);
 		
 		return client;
 	}

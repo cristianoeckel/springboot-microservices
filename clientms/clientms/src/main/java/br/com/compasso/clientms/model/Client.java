@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import br.com.compasso.clientms.repository.ClientRepository;
 
 @Entity
 public class Client {
@@ -72,12 +71,5 @@ public class Client {
 		this.gender = gender;
 	}
 	
-	public Client atualizar(Long id, ClientRepository clientRepository) {
-		Client client = clientRepository.getOne(id);
-		client.setName(this.name);
-		client.setGender(this.gender);
-		
-		return client;
-	}
 	
 }
