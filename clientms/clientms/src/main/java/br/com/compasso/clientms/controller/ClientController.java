@@ -1,11 +1,15 @@
 package br.com.compasso.clientms.controller;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,62 +20,60 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.compasso.clientms.dto.ClientDTO;
+import br.com.compasso.clientms.exception.CityNotFoundException;
+import br.com.compasso.clientms.exception.ClientAlreadyExistsException;
+import br.com.compasso.clientms.exceptionhandler.ClientExceptionHandler.Error;
 import br.com.compasso.clientms.model.Client;
-import br.com.compasso.clientms.repository.ClientRepository;
+import br.com.compasso.clientms.service.ClientService;
+
 
 @RestController
 @RequestMapping("/clients")
 public class ClientController {
 
 	@Autowired
-	ClientRepository clientRepository;
+	ClientService clientService;
 
 	@PostMapping("/new")
-	public void newClient(@RequestBody (required = true) Client client) {
-		clientRepository.save(client);
+	public ResponseEntity<Client> newClient(@Valid @RequestBody (required = true) ClientDTO clientDTO) {
+		Client newClient = clientService.save(clientDTO);
+		return ResponseEntity.status(HttpStatus.CREATED).body(newClient);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ClientDTO> findClientById(@PathVariable Long id) {
-		Optional<Client> client = clientRepository.findById(id);
-		if (client.isPresent()) {
-			return ResponseEntity.ok(new ClientDTO(client.get()));
-		}
-		return ResponseEntity.notFound().build();
+	public Client findClientById(@PathVariable Long id) {
+		return clientService.findById(id);
 	}
 
 	@GetMapping(params = "name")
-	public ResponseEntity<List<Client>> findClientByName(@RequestParam(required = true) String name) {
-		List<Client> clients;
-		clients = clientRepository.findByName(name);
-		if (!clients.isEmpty()) {
-			return ResponseEntity.ok(clients);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
+	public Client findClientByName(@RequestParam(required = true) String name) {
+		return clientService.findClientByName(name);
 	}
-
+	
 	@PutMapping("/{id}")
-	public ResponseEntity<Client> updateClient(@PathVariable Long id, @RequestBody Client client) {
-		Optional<Client> optional = clientRepository.findById(id);
-		if (optional.isPresent()) {
-			ClientDTO newClient = new ClientDTO(client);
-			client = newClient.updateClient(id, clientRepository);
-			clientRepository.save(client);
-			return ResponseEntity.ok(client);
-		}
-
-		return ResponseEntity.notFound().build();
+	public void updateClient(@PathVariable Long id, @RequestBody Client client) {
+		clientService.updateClient(id, client);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteClient(@PathVariable Long id) {
-		Optional<Client> client = clientRepository.findById(id);
-		if (client.isPresent()) {
-			clientRepository.deleteById(id);
-			return ResponseEntity.ok().build();
-		}
-		return ResponseEntity.notFound().build();
+	public void deleteClient(@PathVariable Long id) {
+		clientService.deleteClient(id);
+	}
+	
+	@ExceptionHandler({ ClientAlreadyExistsException.class })
+	public ResponseEntity<Object> handleClientAlreadyExistsException(ClientAlreadyExistsException ex) {
+		String userMessage = "This client is already registered.";
+		String developerMessage = ex.toString();
+		List<Error> errors = Arrays.asList(new Error(developerMessage, userMessage));
+		return ResponseEntity.badRequest().body(errors);
+	}
+	
+	@ExceptionHandler({ CityNotFoundException.class })
+	public ResponseEntity<Object> handleCityNotFoundException(CityNotFoundException ex) {
+		String userMessage = "No cities found with this name.";
+		String developerMessage = ex.toString();
+		List<Error> errors = Arrays.asList(new Error(userMessage, developerMessage));
+		return ResponseEntity.badRequest().body(errors);
 	}
 
 }

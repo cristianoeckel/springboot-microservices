@@ -1,5 +1,23 @@
 package br.com.compasso.cityms.DTO;
 
-public class CityDTO {
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class CityDTO {
+	@NotBlank
+	private String name;
+	
+	@NotBlank
+	@Size(min = 2, max = 2)
+	private String state;
+	
 }
