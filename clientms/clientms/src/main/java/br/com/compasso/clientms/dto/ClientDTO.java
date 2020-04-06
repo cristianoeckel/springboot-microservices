@@ -4,7 +4,15 @@ import java.time.LocalDate;
 
 import br.com.compasso.clientms.model.Client;
 import br.com.compasso.clientms.repository.ClientRepository;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClientDTO {
 
 	private Long id;
@@ -26,54 +34,6 @@ public class ClientDTO {
 		this.birthDate = client.getBirthDate();
 		this.age = client.getAge();
 		this.city = client.getCity();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public LocalDate getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
-	}
-
-	public Integer getAge() {
-		return age;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
 	}
 	
 	public Client updateClient(Long id, ClientRepository clientRepository) {
