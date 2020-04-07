@@ -1,7 +1,6 @@
 package br.com.compasso.clientms.service;
 
-import java.util.Optional;
-
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -10,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import br.com.compasso.clientms.client.CityClient;
 import br.com.compasso.clientms.dto.ClientDTO;
+import br.com.compasso.clientms.dto.UpdateClientNameDTO;
 import br.com.compasso.clientms.exception.CityNotFoundException;
-import br.com.compasso.clientms.exception.ClientAlreadyExistsException;
 import br.com.compasso.clientms.model.Client;
 import br.com.compasso.clientms.repository.ClientRepository;
 import feign.FeignException;
@@ -25,11 +24,10 @@ public class ClientService {
 	@Autowired
 	private CityClient cityClient;
 
-	public Client save(@RequestBody(required = true) ClientDTO clientDTO){
-		Optional<Client> clientOpt = clientRepository.findByNameIgnoreCase(clientDTO.getName());
-		if (clientOpt.isPresent()) {
-			throw new ClientAlreadyExistsException();
-		}
+	@Autowired
+	ModelMapper modelMapper;
+
+	public ClientDTO save(@RequestBody(required = true) ClientDTO clientDTO) {
 		try {
 			cityClient.findByName(clientDTO.getCity());
 		} catch (FeignException e) {
@@ -38,36 +36,43 @@ public class ClientService {
 			}
 			throw e;
 		}
-		Client client = Client.builder().name(clientDTO.getName()).gender(clientDTO.getGender())
-				.birthDate(clientDTO.getBirthDate()).age(clientDTO.getAge()).city(clientDTO.getCity()).build();
-
-		return clientRepository.save(client);
+		Client client = modelMapper.map(clientDTO, Client.class);
+		clientRepository.save(client);
+		clientDTO.setId(client.getId());
+		return clientDTO;
 	}
 
-	public Client findById(Long id) {
-		return clientRepository.findById(id)
-				.orElseThrow(() -> new EmptyResultDataAccessException("No customers found with this id.", 1));
+	public ClientDTO findById(Long id) {
+		Client client = clientRepository.findById(id)
+				.orElseThrow(() -> new EmptyResultDataAccessException("No client found with this ID.", 1));
+		ClientDTO clientDTO = modelMapper.map(client, ClientDTO.class); 
+		return clientDTO;
 	}
 
-	public Client findClientByName(String name) {
-		return clientRepository.findByNameIgnoreCase(name)
+	public ClientDTO findClientByName(String name) {
+		Client client = clientRepository.findByNameIgnoreCase(name)
 				.orElseThrow(() -> new EmptyResultDataAccessException("No client found with this NAME", 1));
+		ClientDTO clientDTO = modelMapper.map(client, ClientDTO.class);
+		return clientDTO;
 	}
 
-	public void updateClient(Long id, Client client) {
-		Optional<Client> optional = clientRepository.findById(id);
-		if (optional.isPresent()) {
-			ClientDTO newClient = new ClientDTO(client);
-			client = newClient.updateClient(id, clientRepository);
-			clientRepository.save(client);
-		}
+	public UpdateClientNameDTO updateClientName(Long id, UpdateClientNameDTO updateClientNameDTO) {
+		Client client = modelMapper.map(updateClientNameDTO, Client.class);
+		client = findClientById(id);
+		client.setName(updateClientNameDTO.getName());
+		clientRepository.save(client);
+		return updateClientNameDTO;
 	}
 
 	public void deleteClient(Long id) {
-		Optional<Client> client = clientRepository.findById(id);
-		if (client.isPresent()) {
-			clientRepository.deleteById(id);
-		}
+		clientRepository.findById(id)
+				.orElseThrow(() -> new EmptyResultDataAccessException("No client found with this ID", 1));
+		clientRepository.deleteById(id);
 	}
 	
+	private Client findClientById (Long id) {
+		return clientRepository.findById(id)
+				.orElseThrow(() -> new EmptyResultDataAccessException("No client found with this NAME", 1));
+	}
+
 }

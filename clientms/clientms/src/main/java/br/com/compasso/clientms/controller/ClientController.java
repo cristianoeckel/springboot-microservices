@@ -20,10 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.compasso.clientms.dto.ClientDTO;
+import br.com.compasso.clientms.dto.UpdateClientNameDTO;
 import br.com.compasso.clientms.exception.CityNotFoundException;
-import br.com.compasso.clientms.exception.ClientAlreadyExistsException;
 import br.com.compasso.clientms.exceptionhandler.ClientExceptionHandler.Error;
-import br.com.compasso.clientms.model.Client;
 import br.com.compasso.clientms.service.ClientService;
 
 
@@ -35,37 +34,29 @@ public class ClientController {
 	ClientService clientService;
 
 	@PostMapping("/new")
-	public ResponseEntity<Client> newClient(@Valid @RequestBody (required = true) ClientDTO clientDTO) {
-		Client newClient = clientService.save(clientDTO);
-		return ResponseEntity.status(HttpStatus.CREATED).body(newClient);
+	public ResponseEntity<ClientDTO> createClient(@Valid @RequestBody (required = true) ClientDTO clientDTO) {
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(clientService.save(clientDTO));
 	}
 
 	@GetMapping("/{id}")
-	public Client findClientById(@PathVariable Long id) {
-		return clientService.findById(id);
+	public ResponseEntity<ClientDTO> getClientById(@PathVariable Long id) {
+		return ResponseEntity.ok(clientService.findById(id));
 	}
 
 	@GetMapping(params = "name")
-	public Client findClientByName(@RequestParam(required = true) String name) {
-		return clientService.findClientByName(name);
+	public ResponseEntity<ClientDTO> getClientByName(@RequestParam(required = true) String name) {
+		return ResponseEntity.ok(clientService.findClientByName(name));
 	}
 	
 	@PutMapping("/{id}")
-	public void updateClient(@PathVariable Long id, @RequestBody Client client) {
-		clientService.updateClient(id, client);
+	public void updateClientName(@PathVariable Long id, @RequestBody UpdateClientNameDTO updateClientNameDTO) {
+		clientService.updateClientName(id, updateClientNameDTO);
 	}
 
 	@DeleteMapping("/{id}")
 	public void deleteClient(@PathVariable Long id) {
 		clientService.deleteClient(id);
-	}
-	
-	@ExceptionHandler({ ClientAlreadyExistsException.class })
-	public ResponseEntity<Object> handleClientAlreadyExistsException(ClientAlreadyExistsException ex) {
-		String userMessage = "This client is already registered.";
-		String developerMessage = ex.toString();
-		List<Error> errors = Arrays.asList(new Error(developerMessage, userMessage));
-		return ResponseEntity.badRequest().body(errors);
 	}
 	
 	@ExceptionHandler({ CityNotFoundException.class })

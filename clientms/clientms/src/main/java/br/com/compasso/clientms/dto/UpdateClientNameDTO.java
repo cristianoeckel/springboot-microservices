@@ -1,7 +1,5 @@
 package br.com.compasso.clientms.dto;
 
-import java.time.LocalDate;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,18 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientDTO {
-
+public class UpdateClientNameDTO {
+	
 	private Long id;
-	
+
 	private String name;
-	
-	private String gender;
-	
-	private LocalDate birthDate;
-	
-	private Integer age;
-	
-	private String city;
-	
+
 }
