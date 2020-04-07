@@ -25,27 +25,17 @@ public class CityController {
 	private CityService cityService;
 
 	@PostMapping
-	public ResponseEntity<CityDTO> createClient(@Valid @RequestBody(required = true) CityDTO cityDTO) {
+	public ResponseEntity<CityDTO> createCity(@Valid @RequestBody(required = true) CityDTO cityDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(cityService.save(cityDTO));
 	}
 
 	@GetMapping
-	public ResponseEntity<List<CityDTO>> findByCityState(@RequestParam String state) {
-		List<CityDTO> citiesDTO = cityService.findByState(state);
-		if (!citiesDTO.isEmpty()) {
-			return ResponseEntity.ok(citiesDTO);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
+	public ResponseEntity<List<CityDTO>> findByState(@RequestParam String state) {
+		return ResponseEntity.ok().body(cityService.findByState(state));
 	}
 
 	@GetMapping(params = "name")
 	public ResponseEntity<List<CityDTO>> findByName(@RequestParam String name) {
-		List<CityDTO> citiesDTO = cityService.findByName(name);
-		if (!citiesDTO.isEmpty()) {
-			return ResponseEntity.ok(citiesDTO);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
+		return ResponseEntity.ok().body(cityService.findByName(name));
 	}
 }
