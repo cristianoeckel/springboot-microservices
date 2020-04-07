@@ -1,5 +1,8 @@
 package br.com.compasso.clientms.service;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -31,7 +34,7 @@ public class ClientService {
 		try {
 			cityClient.findByName(clientDTO.getCity());
 		} catch (FeignException e) {
-			if (e.status() == HttpStatus.NOT_FOUND.value()) {
+			if (e.status() == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
 				throw new CityNotFoundException();
 			}
 			throw e;
@@ -45,33 +48,35 @@ public class ClientService {
 	public ClientDTO findById(Long id) {
 		Client client = clientRepository.findById(id)
 				.orElseThrow(() -> new EmptyResultDataAccessException("No client found with this ID.", 1));
-		ClientDTO clientDTO = modelMapper.map(client, ClientDTO.class); 
-		return clientDTO;
-	}
-
-	public ClientDTO findClientByName(String name) {
-		Client client = clientRepository.findByNameIgnoreCase(name)
-				.orElseThrow(() -> new EmptyResultDataAccessException("No client found with this NAME", 1));
 		ClientDTO clientDTO = modelMapper.map(client, ClientDTO.class);
 		return clientDTO;
 	}
 
+	public List<ClientDTO> findClientByName(String name) {
+		List<Client> clients = findClientName(name);
+		List<ClientDTO> clientsDTO = Arrays.asList(modelMapper.map(clients, ClientDTO[].class));
+		return clientsDTO;
+	}
+
 	public UpdateClientNameDTO updateClientName(Long id, UpdateClientNameDTO updateClientNameDTO) {
-		Client client = modelMapper.map(updateClientNameDTO, Client.class);
-		client = findClientById(id);
+		Client client = findClientById(id);
 		client.setName(updateClientNameDTO.getName());
 		clientRepository.save(client);
 		return updateClientNameDTO;
 	}
 
 	public void deleteClient(Long id) {
-		clientRepository.findById(id)
-				.orElseThrow(() -> new EmptyResultDataAccessException("No client found with this ID", 1));
+		if(clientRepository.existsById(id))
 		clientRepository.deleteById(id);
 	}
-	
-	private Client findClientById (Long id) {
+
+	private Client findClientById(Long id) {
 		return clientRepository.findById(id)
+				.orElseThrow(() -> new EmptyResultDataAccessException("No client found with this NAME", 1));
+	}
+
+	private List<Client> findClientName(String name) {
+		return clientRepository.findByNameIgnoreCase(name)
 				.orElseThrow(() -> new EmptyResultDataAccessException("No client found with this NAME", 1));
 	}
 

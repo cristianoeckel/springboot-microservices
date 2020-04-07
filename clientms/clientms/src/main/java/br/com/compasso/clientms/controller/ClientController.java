@@ -33,7 +33,7 @@ public class ClientController {
 	@Autowired
 	ClientService clientService;
 
-	@PostMapping("/new")
+	@PostMapping
 	public ResponseEntity<ClientDTO> createClient(@Valid @RequestBody (required = true) ClientDTO clientDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(clientService.save(clientDTO));
@@ -45,7 +45,7 @@ public class ClientController {
 	}
 
 	@GetMapping(params = "name")
-	public ResponseEntity<ClientDTO> getClientByName(@RequestParam(required = true) String name) {
+	public ResponseEntity <List<ClientDTO>> getClientByName(@RequestParam(required = true) String name) {
 		return ResponseEntity.ok(clientService.findClientByName(name));
 	}
 	
