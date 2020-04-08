@@ -61,7 +61,7 @@ curl --header "Content-Type: application/json" \
   http://localhost:8080/v1/clients/id
 ```
 
-- Get a customer by name:
+- Get a client by name:
 ```shell script
 curl --header "Content-Type: application/json" \
   --request GET \
@@ -84,7 +84,7 @@ curl --header "Content-Type: application/json" \
   http://localhost:8080/v1/clients/<ID>
 ```
 
-- Delete a customer:
+- Delete a client:
 ```shell script
 curl --header "Content-Type: application/json" \
   --request DELETE \
