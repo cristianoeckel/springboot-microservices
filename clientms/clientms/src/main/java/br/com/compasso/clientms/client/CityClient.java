@@ -11,7 +11,7 @@ import br.com.compasso.clientms.dto.CityDTO;
 @FeignClient("cityms")
 public interface CityClient {
 
-	@RequestMapping(value = "cities", params = "name")
+	@RequestMapping(value = "/v1/cities", params = "name")
 	public List<CityDTO> findByName(@RequestParam(required = true) String name);
 	
 }

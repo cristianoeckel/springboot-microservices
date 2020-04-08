@@ -1,85 +1,92 @@
-# Sobre o projeto
+## About
+This project was made to show my knowledge in Spring Boot microservices.
 
-O objetivo do projeto é gerenciar o cadastro de cidades e de clientes através de micro serviços. O desenvolvimento foi realizado utilizando o Spring Framework, que é bastante conhecido e utilizado devido a sua praticidade e facilidade de uso. O banco de dados utilizado foi o PostgreSQL, em conjunto com a JPA, que é um framework ORM que permite abstração da camada de persistência e nos traz a capacidade de independência de banco. Por ser um projeto de teste, a JPA foi configurada para criar as tabelas, no entanto, em ambientes reais existem ferramentas mais interessantes para o versionamento do banco de dados, como o Flyway, por exemplo.
+### city-service
+- Service that returns and saves data about States and Cities;
+- Uses PostgreSQL as database;
 
-# Sobre os serviços
+### client-service
+- Service that returns and saves data about Clients
+- Uses PostgreSQL;
+- Uses Feign client to request data from other APIs.
 
-Foram criados cinco serviços:
+## Prerequisites
+To compile this software maven should be installed.
+To run this software, a JRE and a PostgreSQL.
 
- - **Config Server**: Servidor de configuração, onde os demais serviços vão buscar as suas configurações quando estiverem subindo. Uma das vantagens em se utilizar essa estratégia é a capacidade de escalabilidade do projeto, uma vez que as configurações estão centralizadas num único servidor, facilitando a manutenção.
-	Executa na porta 8888.
-
- - **Api Gateway**: Servidor que irá receber as requisições dos clientes. A principal vantagem de utilizar esse servidor é que os clientes precisam conhecer somente esse serviço, sem se preocupar com os endereços e portas dos outros serviços, pois o server irá fazer o direcionamento para o serviço correto.
-Executa na porta 5555.
-
-- **Eureka Server**: O Eureka é responsável por conhecer os serviços que estão rodando. Quando um serviço sobe, ele se registra no Eureka, permitindo que novos serviços sejam adicionados de maneira rápida e fácil.
-Executa na porta 8761.
-
-- **City Service**: Serviço responsável por gerenciar o cadastro das cidades. Executa na porta 8080. A documentação da API pode ser acessada no endereço [http://localhost:5555/city/swagger-ui.html](http://localhost:8080/swagger-ui.html).
-
-- **Client Service**: Serviço responsável por gerenciar o cadastro dos clientes. Ao efetuar um novo cadastro, ele se comunica com o city service para validar se a cidade informada está cadastrada. Executa na porta 8081. A documentação da API pode ser acessada no endereço [http://localhost:8081/client/swagger-ui.html](http://localhost:8081/client/swagger-ui.html).
-
-# Compilando o projeto
-
-O projeto foi desenvolvido utilizando o Eclipse como IDE. Dessa forma é possível baixá-lo e executar diretamente por ele.
-
-Também é possível compilar cada projeto e executá-los manualmente. Para isso,  é utilizado o maven através do comando abaixo:
-
-```mvn clean compile```
-
-Executar os testes:
-
-```mvn test```
-
-Para gerar um binário executável, empacote o arquivo:
-
-```mvn package```
-
-Para rodar o projeto localmente, configure o banco de dados no application.properties. Por padrão, ele tenta acessar o database "city" no city service e customer no customer service, utilizando user e senha "postgres". Se for usar essas configurações padrões, crie os databases com os comandos:
-
-```create database city;```
-```create database customer;```
-
-Para executar, compile e empacote cada projeto e para cada um deles acesse a pasta "target" e execute:
-
-```java -jar <project name>.jar```
-
-Exemplo rodando os 5 serviços:
-
+## Building
+To compile this projects run:
+```shell script
+mvn clean compile
 ```
-java -jar config-server.jar
-java -jar eureka-server.jar
-java -jar zuul.jar
-java -jar city.jar
-java -jar customer.jar
+To test this projects run:
+```shell script
+
+## API Usage
+Below are the API endpoints to be called, replace the <DATA> with the apropriate value.
+
+- Get a list of cities from a state:
+```shell script
+curl --header "Content-Type: application/json" \
+  --request GET \
+  http://localhost:8080/v1/cities?state=
 ```
 
-# Consumindo a API
+- Get a list of cities, can be filtered using query parameters 'name' and 'state', where 'name' is the name of the city, and state can be the complete name of the state, an abbreviation or the state's ID.
+```shell script
+curl --header "Content-Type: application/json" \
+  --request GET \
+  http://localhost:8080/v1/cities
+```
 
-Abaixo serão detalhadas as informações para consumir os endpoints dos serviços.
+- Get a city by ID;
+```shell script
+curl --header "Content-Type: application/json" \
+  --request GET \
+  http://localhost:8080/api/v1/cities/<CITY_ID>
+```
 
-## Consumindo o city service
-Para consultar a documentação completa da API, acesse: [http://localhost:8080/swagger-ui.html](http://localhost:8080/city/swagger-ui.html)
+- Create a new city;
+```shell script
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{ "name": "<NAME>", "state": <STATE> }' \
+  http://localhost:8080/v1/cities
+```
 
-Abaixo serão apresentados alguns exemplos de consumo do serviço.
+- Get a client by ID:
+```shell script
+curl --header "Content-Type: application/json" \
+  --request GET \
+  http://localhost:8080/v1/clients/id
+```
 
-### Cadastrando um nova cidade
-```curl --location --request POST http://localhost:8080/api/v1/cities' --header 'Content-Type: application/json' --data-raw '{"name" : "Santa Cruz do Sul", "state" : "RS"}'```
+- Get a customer by name:
+```shell script
+curl --header "Content-Type: application/json" \
+  --request GET \
+  http://localhost:8080/api/v1/clients?name="client_name"
+```
 
-### Consultar cidade pelo nome
+- Create a new client:
+```shell script
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{ "name": "<CUSTOMER_NAME>", "genre": "<MALE,FEMALE,UNDEFINED>", "birthday": "<DATE>",  "City": <CITY>}' \
+  http://localhost:8080/v1/client
+```
 
-```curl --location --request GET 'http://localhost:8080/city/api/v1/cities?name=Santa%20Cruz%20do%20Sul'```
+- Update client's name:
+```shell script
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{ "name": "<name>"}' \
+  http://localhost:8080/v1/clients/<ID>
+```
 
-
-## Consumindo o customer service
-Para consultar a documentação completa da API, acesse:
-[http://localhost:5555/customer/swagger-ui.html](http://localhost:8080/customer/swagger-ui.html)
-
-Abaixo serão apresentados alguns exemplos de consumo do serviço.
-
-### Cadastrando um novo cliente
-```curl --location --request POST 'http://localhost:8081/client/api/v1/customers' --header 'Content-Type: application/json' --data-raw '{"name" : "João da Silva","gender" : "MALE","birthDate" : "1990-11-03","age": 29, "city" : "Santa Cruz do Sul"}'```
-
-### Consultar cliente pelo nome
-
-```curl --location --request GET 'http://localhost:8081/client/api/v1/customers?name=Jose'```
+- Delete a customer:
+```shell script
+curl --header "Content-Type: application/json" \
+  --request DELETE \
+  http://localhost:8080/api/v1/clients/<ID>
+```
