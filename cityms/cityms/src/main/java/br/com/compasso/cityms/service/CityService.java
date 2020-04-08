@@ -23,10 +23,9 @@ public class CityService {
 	@Autowired
 	ModelMapper modelMapper;
 
-
 	public CityDTO save(@RequestBody(required = true) CityDTO cityDTO) {
 		City city = modelMapper.map(cityDTO, City.class);
-	    cityRepository.save(city);
+		cityRepository.save(city);
 	    cityDTO.setId(city.getId());
 		return cityDTO;
 	}

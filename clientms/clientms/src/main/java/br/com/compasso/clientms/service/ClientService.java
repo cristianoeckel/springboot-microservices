@@ -39,6 +39,7 @@ public class ClientService {
 			}
 			throw e;
 		}
+		clientDTO.setAge(ClientDTO.age(clientDTO.getBirthDate()));
 		Client client = modelMapper.map(clientDTO, Client.class);
 		clientRepository.save(client);
 		clientDTO.setId(client.getId());
@@ -66,13 +67,12 @@ public class ClientService {
 	}
 
 	public void deleteClient(Long id) {
-		if(clientRepository.existsById(id))
 		clientRepository.deleteById(id);
 	}
 
 	private Client findClientById(Long id) {
 		return clientRepository.findById(id)
-				.orElseThrow(() -> new EmptyResultDataAccessException("No client found with this NAME", 1));
+				.orElseThrow(() -> new EmptyResultDataAccessException("No client found with this ID", 1));
 	}
 
 	private List<Client> findClientName(String name) {
