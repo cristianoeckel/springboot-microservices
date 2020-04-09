@@ -3,8 +3,10 @@ This project was made to show my knowledge in Spring Boot microservices.
 
 ## Documentation
 To acess the API documentation you can go to
+
 cityms-documentation
 http://localhost:8080/swagger-ui.html/
+
 clientms-Documentation
 http://localhost:8081/swagger-ui.html/
 
@@ -22,16 +24,14 @@ You have to configure you database manually on applcation properties. The projec
 ```create database city;```
 ```create database customer;```
 
-To run the project compile and package all of the five project's then acess the target dir and run the following commands:
-
-Para executar, compile e empacote cada projeto e para cada um deles acesse a pasta "target" e execute:
+To run the project, compile and package all of the five project's then acess the "target" dir and execute the following commands:
 
 ```
 java -jar config-server.jar
 java -jar eureka-server.jar
 java -jar zuul.jar
-java -jar city.jar
-java -jar customer.jar
+java -jar cityms-1.0.0.jar
+java -jar clientms-1.0.0.jar
 ```
 
 ### city-service
