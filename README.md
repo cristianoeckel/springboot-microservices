@@ -54,27 +54,27 @@ Execute this command:
 on the root folder where you cloned the project.
 
 ## API Usage
-Below are the API endpoints to be called, replace the <DATA> with the apropriate value.
+Below are the API endpoints to be called.
 
 - Get a list of cities from a state:
 ```shell script
 curl --header "Content-Type: application/json" \
   --request GET \
-  http://localhost:8080/cityms/v1/cities?state=
+  http://localhost:8080/cityms/v1/cities?state="state"
 ```
 
 - Get a city by name;
 ```shell script
 curl --header "Content-Type: application/json" \
   --request GET \
-  http://localhost:8080/cityms/v1/cities?name=<CITY_ID>
+  http://localhost:8080/cityms/v1/cities?name="name"
 ```
 
 - Register's a new city;
 ```shell script
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{ "name": "<NAME>", "state": <STATE> }' \
+  --data '{ "name": "Candelária", "state": "RS"> }' \
   http://localhost:8080/cityms/v1/cities
 ```
 
@@ -82,21 +82,21 @@ curl --header "Content-Type: application/json" \
 ```shell script
 curl --header "Content-Type: application/json" \
   --request GET \
-  http://localhost:8081/clientms/v1/clients/id
+  http://localhost:8081/clientms/v1/clients/{id}
 ```
 
 - Get a client by name:
 ```shell script
 curl --header "Content-Type: application/json" \
   --request GET \
-  http://localhost:8081/clientms/v1/clients?name="client_name"
+  http://localhost:8081/clientms/v1/clients?name="name"
 ```
 
 - Register's a new client:
 ```shell script
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{ "name": "<CUSTOMER_NAME>", "genre": "<MALE,FEMALE,UNDEFINED>", "birthday": "<DATE>",  "City": <CITY>}' \
+  --data '{ "name": "Cristiano", "genre": "<MALE,FEMALE,UNDEFINED>", "birthday": "1999-01-01",  "City": <CITY>}' \
   http://localhost:8081/clientms/v1/clients
 ```
 
@@ -104,13 +104,13 @@ curl --header "Content-Type: application/json" \
 ```shell script
 curl --header "Content-Type: application/json" \
   --request PUT \
-  --data '{ "name": "<name>"}' \
-  http://localhost:8081/clientms/v1/clients/<ID>
+  --data '{ "name": "name"}' \
+  http://localhost:8081/clientms/v1/clients/{id}
 ```
 
 - Delete a client:
 ```shell script
 curl --header "Content-Type: application/json" \
   --request DELETE \
-  http://localhost:8081/clientms/v1/clients/<ID>
+  http://localhost:8081/clientms/v1/clients/{id}
 ```
