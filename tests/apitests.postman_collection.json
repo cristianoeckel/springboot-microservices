@@ -29,13 +29,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/v1/clients?name=testnamethatdoesntexist",
+					"raw": "http://localhost:8081/clientms/v1/clients?name=testnamethatdoesntexist",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"clientms",
 						"v1",
 						"clients"
 					],
@@ -74,13 +75,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/v1/clients/1000",
+					"raw": "http://localhost:8081/clientms/v1/clients/1000",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"clientms",
 						"v1",
 						"clients",
 						"1000"
@@ -123,13 +125,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8081/v1/clients/1000",
+					"raw": "http://localhost:8081/clientms/v1/clients/1000",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"clientms",
 						"v1",
 						"clients",
 						"1000"
@@ -162,13 +165,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/v1/clients/1000",
+					"raw": "http://localhost:8081/clientms/v1/clients/1000",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"clientms",
 						"v1",
 						"clients",
 						"1000"
@@ -201,20 +205,21 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/v1/cities?state=RS",
+					"raw": "http://localhost:8080/cityms/v1/cities?state=RA",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"cityms",
 						"v1",
 						"cities"
 					],
 					"query": [
 						{
 							"key": "state",
-							"value": "RS"
+							"value": "RA"
 						}
 					]
 				},
@@ -246,13 +251,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/v1/cities?name=SURU",
+					"raw": "http://localhost:8080/cityms/v1/cities?name=SURU",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"cityms",
 						"v1",
 						"cities"
 					],
@@ -309,13 +315,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8081/v1/clients",
+					"raw": "http://localhost:8081/clientms/v1/clients",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"clientms",
 						"v1",
 						"clients"
 					]
@@ -357,13 +364,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/v1/clients?name=Cristiano Augusto Rutsatsz",
+					"raw": "http://localhost:8081/clientms/v1/clients?name=Cristiano Augusto Rutsatsz",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"clientms",
 						"v1",
 						"clients"
 					],
@@ -411,13 +419,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/v1/clients/1",
+					"raw": "http://localhost:8081/clientms/v1/clients/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"clientms",
 						"v1",
 						"clients",
 						"1"
@@ -460,13 +469,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8081/v1/clients/1",
+					"raw": "http://localhost:8081/clientms/v1/clients/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"clientms",
 						"v1",
 						"clients",
 						"1"
@@ -499,13 +509,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/v1/clients/1",
+					"raw": "http://localhost:8081/clientms/v1/clients/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
+						"clientms",
 						"v1",
 						"clients",
 						"1"
@@ -556,13 +567,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/v1/cities/",
+					"raw": "http://localhost:8080/cityms/v1/cities/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"cityms",
 						"v1",
 						"cities",
 						""
@@ -605,13 +617,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/v1/cities?state=RS",
+					"raw": "http://localhost:8080/cityms/v1/cities?state=RS",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"cityms",
 						"v1",
 						"cities"
 					],
@@ -659,13 +672,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/v1/cities?name=Sobradinho",
+					"raw": "http://localhost:8080/cityms/v1/cities?name=Sobradinho",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"cityms",
 						"v1",
 						"cities"
 					],

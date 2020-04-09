@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @RestController
-@RequestMapping("/cityms/v1/clients")
+@RequestMapping("/clientms/v1/clients")
 public class ClientController {
 
 	@Autowired

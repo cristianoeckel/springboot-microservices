@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>br.com.compasso</groupId>
 	<artifactId>cityms</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>cityms</name>
 	<description>Prova de Spring Boot - MS Cidades</description>
 
