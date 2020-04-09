@@ -1,0 +1,257 @@
+{
+	"info": {
+		"_postman_id": "ceb7848d-ae81-48bb-ae62-def67c26d3f0",
+		"name": "Client - Spring Boot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "New client",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b259ba0-e931-40cf-992c-04a4fd35537d",
+						"exec": [
+							"// example using pm.response.to.have\r",
+							"pm.test(\"response is ok\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							" \r",
+							"\r",
+							"pm.test(\"response should be okay to process\", function () { \r",
+							"    pm.response.to.not.be.error; \r",
+							"    pm.response.to.not.have.jsonBody(\"error\"); \r",
+							"});\r",
+							" \r",
+							"// example using pm.response.to.be*\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     // assert that the response has a valid JSON body\r",
+							"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\n\t\"name\":\"Cristiano Augusto Rutsatsz\",\n\t\"gender\":\"MALE\",\n\t\"birthDate\":\"1999-01-04\",\n\t\"city\":\"Sobradinho\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/v1/clients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"v1",
+						"clients"
+					]
+				},
+				"description": "Creates a new Client"
+			},
+			"response": []
+		},
+		{
+			"name": "Get client by name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b1ba9fc0-860c-4529-9c2c-de41e9cc4567",
+						"exec": [
+							"// example using pm.response.to.have\r",
+							"pm.test(\"response is ok\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							" \r",
+							"\r",
+							"pm.test(\"response should be okay to process\", function () { \r",
+							"    pm.response.to.not.be.error; \r",
+							"    pm.response.to.not.have.jsonBody(\"error\"); \r",
+							"});\r",
+							" \r",
+							"// example using pm.response.to.be*\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     // assert that the response has a valid JSON body\r",
+							"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/v1/clients?name=Cristiano Augusto Rutsatsz",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"v1",
+						"clients"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Cristiano Augusto Rutsatsz"
+						}
+					]
+				},
+				"description": "Find the clientes by their name"
+			},
+			"response": []
+		},
+		{
+			"name": "Get client by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "649686c8-7214-4085-9c3d-53b440107fdf",
+						"exec": [
+							"// example using pm.response.to.have\r",
+							"pm.test(\"response is ok\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							" \r",
+							"\r",
+							"pm.test(\"response should be okay to process\", function () { \r",
+							"    pm.response.to.not.be.error; \r",
+							"    pm.response.to.not.have.jsonBody(\"error\"); \r",
+							"});\r",
+							" \r",
+							"// example using pm.response.to.be*\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     // assert that the response has a valid JSON body\r",
+							"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/v1/clients/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"v1",
+						"clients",
+						"1"
+					]
+				},
+				"description": "Returns the client wich has the exact id parameter as requested."
+			},
+			"response": []
+		},
+		{
+			"name": "Updates client",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed425aed-9c6f-432f-885a-4954060c0a64",
+						"exec": [
+							"// example using pm.response.to.have\r",
+							"pm.test(\"response is ok\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							" \r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\n\t\"name\":\"Cristiano Augusto\"\n}\t",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/v1/clients/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"v1",
+						"clients",
+						"1"
+					]
+				},
+				"description": "Updates the client by id."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete client by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "40722ebb-d2f0-4950-b2b6-0982620ce29f",
+						"exec": [
+							"// example using pm.response.to.have\r",
+							"pm.test(\"response is ok\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							" \r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/v1/clients/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"v1",
+						"clients",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
