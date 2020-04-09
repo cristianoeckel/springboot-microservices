@@ -27,7 +27,7 @@ import io.swagger.annotations.ApiParam;
  *
  */
 @RestController
-@RequestMapping("/v1/cities")
+@RequestMapping("/cityms/v1/cities")
 @Api(value = "City", tags = "City")
 public class CityController {
 

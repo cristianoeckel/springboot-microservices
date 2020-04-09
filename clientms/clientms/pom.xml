@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>br.com.compasso</groupId>
 	<artifactId>clientms</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>clientms</name>
 	<description>Prova de Spring Boot - MS Cliente</description>
 
@@ -97,6 +97,15 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-jar-plugin</artifactId>
+		<configuration>
+			<archive>
+				<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+			</archive>
+		</configuration>
+	</plugin>
 		</plugins>
 	</build>
 	<dependencyManagement>
