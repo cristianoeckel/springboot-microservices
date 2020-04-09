@@ -11,13 +11,12 @@ http://localhost:8081/swagger-ui.html/
 # Building
 
 You can run this project on your ECLIPSE IDE.
-or you can manually run each project with the following command:
-
-```mvn clean compile```
+or you can manually run each jar file.
 
 To generate an executable jar file you can run the next command:
 
 ```mvn clean install```
+
 You have to configure you database manually, on th applcation properties. The project will use the following default databases: cityms and clientms both using username:postgres and password:postgres you can create the databases with the commands below.
 
 ```create database city;```
