@@ -2,7 +2,7 @@
 This project was made to show my knowledge in Spring Boot microservices.
 
 ## Documentation
-To acess the API documentation you can go to
+After executing the project, to acess the API documentation you can go to
 
 cityms-documentation
 http://localhost:8080/swagger-ui.html/
