@@ -21,7 +21,7 @@ public class ClientDTO {
 	private String name;
 	@NotBlank
 	private String gender;
-
+	
 	private LocalDate birthDate;
 	
 	private Integer age;

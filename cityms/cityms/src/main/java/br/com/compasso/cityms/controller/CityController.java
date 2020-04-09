@@ -21,7 +21,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 /**
- * Controller for the requests related to cities.
+ * 
  * 
  * @author cristiano.eckel
  *
@@ -43,16 +43,17 @@ public class CityController {
 
 	@ApiOperation(value = "Search all the citys of this state")
 	@GetMapping(params = "state")
-	public ResponseEntity<List<CityDTO>> findByState(
+	public ResponseEntity<List<CityDTO>> getCityByState(
 			@ApiParam(value = "City state", required = true) @RequestParam String state) {
-		return ResponseEntity.ok().body(cityService.findByState(state));
+		return ResponseEntity.ok(cityService.findByState(state));
 	}
 
 	@ApiOperation(value = "Search for citys using the name parameter.")
 	@GetMapping(params = "name")
-	public ResponseEntity<List<CityDTO>> findByName(
+	public ResponseEntity<List<CityDTO>> getCityByName(
 			@ApiParam(value = "City name", required = true) @RequestParam String name) {
-		return ResponseEntity.ok().body(cityService.findByName(name));
+		return ResponseEntity.ok(cityService.findByName(name));
 
 	}
+
 }

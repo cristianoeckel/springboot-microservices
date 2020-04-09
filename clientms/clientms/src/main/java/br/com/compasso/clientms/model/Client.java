@@ -1,6 +1,6 @@
 package br.com.compasso.clientms.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +27,7 @@ public class Client {
 	
 	private GenderEnum gender;
 	
-	private LocalDateTime birthDate;
+	private LocalDate birthDate;
 	
 	private Integer age;
 	

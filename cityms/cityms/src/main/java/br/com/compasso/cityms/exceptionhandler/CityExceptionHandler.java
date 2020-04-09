@@ -1,4 +1,4 @@
-package br.com.compasso.clientms.exceptionhandler;
+package br.com.compasso.cityms.exceptionhandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +11,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -20,10 +19,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-
 @ControllerAdvice
-public class ClientExceptionHandler extends ResponseEntityExceptionHandler {
+public class CityExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@Autowired
 	private MessageSource messageSource;
@@ -45,24 +42,6 @@ public class ClientExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 	}
 
-	@Override
-	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		if (ex.getCause() instanceof InvalidFormatException) {
-			String userMessage = "Some field is filled in with an incorrect format. For dates, use the yyyy-DD-mm format.";
-			String developerMessage = ex.toString();
-			List<Error> errors = Arrays.asList(new Error(userMessage, developerMessage));
-
-			return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-		} else {
-			String userMessage = ex.getMessage();
-			String developerMessage = ex.toString();
-			List<Error> errors = Arrays.asList(new Error(userMessage, developerMessage));
-
-			return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
-		}
-	}
-
 	private List<Error> createErrorList(BindingResult bindingResult) {
 		List<Error> errors = new ArrayList<>();
 		for (FieldError fieldError : bindingResult.getFieldErrors()) {
@@ -74,9 +53,7 @@ public class ClientExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	public static class Error {
-
 		private String userMessage;
-
 		private String developerMessage;
 
 		public Error(String userMessage, String developerMessage) {
