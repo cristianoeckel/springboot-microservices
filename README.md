@@ -49,7 +49,8 @@ To run this software, a JRE and a PostgreSQL.
 To test this project, node v10> and newman.
 
 ## Running tests
-Execute this command -> newman run tests/apitests.postman_collection.json -e tests/teste.postman_environment.json
+Execute this command:
+```newman run tests/apitests.postman_collection.json -e tests/teste.postman_environment.json```
 on the root folder where you cloned the project.
 
 ## API Usage
