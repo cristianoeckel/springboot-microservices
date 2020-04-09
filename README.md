@@ -10,7 +10,7 @@ http://localhost:8081/swagger-ui.html/
 
 # Building
 
-You can run this project on your ECLIPSE IDE.
+You can run this project on your ECLIPSE IDE,
 or you can manually run each jar file.
 
 To generate an executable jar file you can run the following command:
