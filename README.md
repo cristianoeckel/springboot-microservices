@@ -58,14 +58,14 @@ curl --header "Content-Type: application/json" \
 ```shell script
 curl --header "Content-Type: application/json" \
   --request GET \
-  http://localhost:8080/v1/clients/id
+  http://localhost:8081/v1/clients/id
 ```
 
 - Get a client by name:
 ```shell script
 curl --header "Content-Type: application/json" \
   --request GET \
-  http://localhost:8080/api/v1/clients?name="client_name"
+  http://localhost:8081/api/v1/clients?name="client_name"
 ```
 
 - Create a new client:
@@ -73,7 +73,7 @@ curl --header "Content-Type: application/json" \
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{ "name": "<CUSTOMER_NAME>", "genre": "<MALE,FEMALE,UNDEFINED>", "birthday": "<DATE>",  "City": <CITY>}' \
-  http://localhost:8080/v1/client
+  http://localhost:8081/v1/clients
 ```
 
 - Update client's name:
@@ -81,12 +81,12 @@ curl --header "Content-Type: application/json" \
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{ "name": "<name>"}' \
-  http://localhost:8080/v1/clients/<ID>
+  http://localhost:8081/v1/clients/<ID>
 ```
 
 - Delete a client:
 ```shell script
 curl --header "Content-Type: application/json" \
   --request DELETE \
-  http://localhost:8080/api/v1/clients/<ID>
+  http://localhost:8081/api/v1/clients/<ID>
 ```
