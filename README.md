@@ -96,7 +96,7 @@ curl --header "Content-Type: application/json" \
 ```shell script
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{ "name": "Cristiano", "genre": "<MALE,FEMALE,UNDEFINED>", "birthday": "1999-01-01",  "City": <CITY>}' \
+  --data '{ "name": "Cristiano", "gender": "<MALE,FEMALE,UNDEFINED>", "birthday": "1999-01-01",  "City": <CITY>}' \
   http://localhost:8081/clientms/v1/clients
 ```
 
